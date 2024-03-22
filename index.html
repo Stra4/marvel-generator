@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel United Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #646060;
+        }
+
+        #generatedContent {
+            background-color: rgb(165, 162, 162);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(252, 253, 253, 0.1);
+            text-align: center;
+        }
+
+        .characterImage {
+            width: 100px;
+            height: 150px;
+            margin: 5px;
+        }
+
+        #resultsTextarea {
+            width: 200px;
+            height: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body onload="generateRandomCharacters()">
+    <div id="generatedContent">
+        <h2>Marvel United Generator</h2>
+        <div id="villains">
+            <h3>Villains</h3>
+            <select id="villainSelect">
+                <option value=" Ultron">Ultron</option>
+                <option value=" Taskmaster">Taskmaster</option>
+                <option value=" Loki">Loki</option>
+                <option value=" Red Skull">Red Skull</option>
+            </select>
+        </div>
+        <div id="heroes">
+            <h3>Heroes</h3>
+            <select id="heroSelect" >
+                <option value=" Hulk">Hulk</option>
+                <option value=" Black Widow">Black Widow</option>
+                <option value=" Iron Man">Iron Man</option>
+                <option value=" Captain Marvel">Captain Marvel</option>
+                <option value=" Captain America">Captain America</option>
+                <option value=" Ant-man">Ant-man</option>
+                <option value=" Wasp">Wasp</option>
+                <option value=" Thor">Thor</option>
+                <option value=" Korg">Korg</option>
+                <option value=" Valkyrie">Valkyrie</option>
+            </select>
+        </div>
+        <div id="locations">
+            <h3>Locations</h3>
+            <select id="locationSelect">
+                <option value=" Star labs">Star labs</option>
+                <option value=" Central park">Central park</option>
+                <option value=" Times Square">Times Square</option>
+                <option value=" Avengers mansion">Avengers mansion</option>
+                <option value=" SHIELD headquarters">SHIELD headquarters</option>
+                <option value=" Avengers tower">Avengers tower</option>
+                <option value=" SHIELD helicarrier">SHIELD helicarrier</option>
+                <option value=" NY Police headquarters">NY Police headquarters</option>
+                <option value=" Valhalla">Valhalla</option>
+                <option value=" Throne room">Throne room</option>
+                <option value=" Asgardian palace">Asgardian palace</option>
+                <option value=" Bifrost bridge">Bifrost bridge</option>
+                <option value=" Odin's vault">Odin's vault</option>
+                <option value=" Heimdall's observatory">Heimdall's observatory</option>
+            </select>
+        </div>
+        <br>
+        <button onclick="generateRandomCharacters(4)">Generate for 4 heroes</button>
+        <button onclick="generateRandomCharacters(3)">Generate for 3 heroes</button>
+        <button onclick="generateRandomLocations()">Generate for 6 locations</button>
+        <br><br>
+        <textarea id="resultsTextarea" readonly></textarea>
+    </div>
+
+    <script>
+        const villains = ["Ultron", "Taskmaster", "Loki", "Red Skull"];
+        const locations = [
+            "Star labs", "Central park", "Times Square", "Avengers mansion", "SHIELD headquarters", "Avengers tower",
+            "SHIELD helicarrier", "NY Police headquarters", "Valhalla", "Throne room", "Asgardian palace",
+            "Bifrost bridge", "Odin's vault", "Heimdall's observatory"
+        ];
+        function generateRandomCharacters(numHeroes) {
+            const heroOptions = document.getElementById("heroSelect").options;
+            const villainOptions = document.getElementById("villainSelect").options;
+
+            const randomVillainIndex = Math.floor(Math.random() * villainOptions.length);
+            const selectedVillain = villainOptions[randomVillainIndex].value;
+
+            const randomHeroIndices = [];
+            while (randomHeroIndices.length < numHeroes) {
+                const randomIndex = Math.floor(Math.random() * heroOptions.length);
+                if (!randomHeroIndices.includes(randomIndex)) {
+                    randomHeroIndices.push(randomIndex);
+                }
+            }
+
+            const selectedHeroes = randomHeroIndices.map(index => heroOptions[index].value);
+            const selectedHeroesText = selectedHeroes.join(", ");
+
+            const resultsTextarea = document.getElementById("resultsTextarea");
+            resultsTextarea.value = "Random villain:\n " + selectedVillain + "\nRandom heroes:\n " + selectedHeroesText.replace(/,/g, '\n');
+        }
+
+        function generateRandomLocations() {
+            const locationOptions = document.getElementById("locationSelect").options;
+
+            const randomLocationIndices = [];
+            while (randomLocationIndices.length < 6) {
+                const randomIndex = Math.floor(Math.random() * locationOptions.length);
+                if (!randomLocationIndices.includes(randomIndex)) {
+                    randomLocationIndices.push(randomIndex);
+                }
+            }
+
+            const selectedLocations = randomLocationIndices.map(index => locationOptions[index].value);
+            const selectedLocationsText = selectedLocations.join(" , ");
+
+            const resultsTextarea = document.getElementById("resultsTextarea");
+            resultsTextarea.value = "Random locations:\n " + selectedLocationsText.replace(/,/g, '\n');
+
+        }
+    </script>
+</body>
+</html>
+
+
